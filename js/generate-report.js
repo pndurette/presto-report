@@ -5,12 +5,12 @@ presto_user = process.env.PRESTO_USER
 presto_pass = process.env.PRESTO_PASS
 
 // Report parameters
-date   = '06/01/2019 - 06/30/2019';
-types  = ['Loads', 'Transit pass loads'];
+date  = '06/01/2019 - 06/30/2019';
+types = ['Loads', 'Transit pass loads'];
 
 // PDF
 pdf_name = "report.pdf";
-pdf_path = "js/" + pdf_name;
+pdf_path = "/tmp/artifacts/" + pdf_name;
 
 // Structuring:
 // https://gist.github.com/glenhallworthreadify/d447e9d6b1fc9cb807b46f952236d4bc
@@ -82,7 +82,7 @@ pdf_path = "js/" + pdf_name;
     await page.click('button#printTHR');
 
     // Bait and Switch
-    // The report is generated an in iframe '#printArea_1'.
+    // The report is generated in an iframe '#printArea_1'.
     // To make it easier for puppeteer, this replaces the
     // root 'document' with the iframe's 'document', effectively
     // replacing the entire current page with the iframe's contents.
