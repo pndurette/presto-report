@@ -1,0 +1,22 @@
+{
+  "name": "presto-report",
+  "version": "0.0.1",
+  "description": "Generate PRESTO card activity reports",
+  "main": "presto-report.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pndurette/presto-report.git"
+  },
+  "author": "Pierre-Nick Durette",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pndurette/presto-report/issues"
+  },
+  "homepage": "https://github.com/pndurette/presto-report#readme",
+  "dependencies": {
+    "puppeteer": "^1.17.0"
+  }
+}

@@ -8,9 +8,9 @@ presto_pass = process.env.PRESTO_PASS
 date  = '06/01/2019 - 06/30/2019';
 types = ['Loads', 'Transit pass loads'];
 
-// PDF
+// PDF output
 pdf_name = "report.pdf";
-pdf_path = "/tmp/artifacts/" + pdf_name;
+pdf_path = `${process.env.ARTIFACTS_DIR}/${pdf_name}`;
 
 // Structuring:
 // https://gist.github.com/glenhallworthreadify/d447e9d6b1fc9cb807b46f952236d4bc
