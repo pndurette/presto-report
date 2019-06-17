@@ -1,26 +1,64 @@
 const puppeteer = require('puppeteer');
+const moment = require('moment');
 const argv = require('yargs')
     .usage('$0 [args]', 'Generate PRESTO card activity reports')
-    .option('f', {
-        alias: 'file',
+    .option('last', {
         demandOption: true,
-        default: '/etc/passwd',
-        describe: 'x marks the spot',
+        default: true,
+        describe: 'Last month',
+        group: "Date Range",
+        type: 'boolean'
+    })
+    .option('type', {
+        alias: 't',
+        demandOption: true,
+        default: ['Loads', 'Transit pass payment'],
+        describe: 'Transaction type',
+        group: "Transaction type",
+        type: 'string',
+        array: true,
+        choices: [
+            'ALL',
+            'Loads',
+            'Transit pass loads',
+            'Fare Payment',
+            'Transit pass payment'  
+        ]
+    })
+    .option('to', {
+        describe: 'Email to send to',
+        group: "Emailing",
         type: 'string'
     })
+    .option('from', {
+        describe: 'Email sent from',
+        group: "Emailing",
+        type: 'string'
+    })
+    // emails must be used together
+    .implies('to', 'from')
+    .implies('from', 'to')
     .help()
     .version()
     .argv
 
-process.exit()
+console.dir(argv);
+
+// Calculate date range string PRESTO expects.
+// In the format "<from MM/DD/YYYY> - <to MM/DD/YYYY>"
+//   e.g. "04/01/2019 - 05/08/2019"
+date_rage = (function(argv) {
+    if (argv.last) {
+        // Last month range
+        from_date = moment().subtract(1, 'months').startOf('month')
+        to_date = moment().subtract(1, 'months').endOf('month')
+        return `${from_date.format('MM/DD/YYYY')} - ${to_date.format('MM/DD/YYYY')}`
+    }
+})(argv);
 
 // Login credentials
 presto_user = process.env.PRESTO_USER
 presto_pass = process.env.PRESTO_PASS
-
-// Report parameters
-date  = '06/01/2019 - 06/30/2019';
-types = ['Loads', 'Transit pass loads'];
 
 // PDF output
 pdf_name = "report.pdf";
@@ -59,14 +97,14 @@ pdf_path = `${process.env.ARTIFACTS_DIR}/${pdf_name}`;
     //   e.g. "04/01/2019 - 05/08/2019"
     // This creates, sets, adds and selects that option
     // This date string is used by the site for filtering/printing.
-    console.log(`Setting date range as '${date}'...`);
-    await page.evaluate(({date}) => {
-        the_range = document.createElement('option');
-        the_range.value = 6;
-        the_range.text = date;
-        document.querySelector("select#Months").add(the_range);
+    console.log(`Setting date range as '${date_rage}'...`);
+    await page.evaluate(({date_rage}) => {
+        range_opt = document.createElement('option');
+        range_opt.value = 6;
+        range_opt.text = date_rage;
+        document.querySelector("select#Months").add(range_opt);
         document.querySelector("select#Months").value = 6;
-    }, {date});
+    }, {date_rage});
 
     // Transaction Type(s)
     // The 'div.overSelect' element when clicked
@@ -81,9 +119,9 @@ pdf_path = `${process.env.ARTIFACTS_DIR}/${pdf_name}`;
     // This selects the desired transaction types.
     // Those checked checkboxes are used by the site
     // for filtering/printing.
-    console.log(`Setting transaction types as '${types}'...`);
+    console.log(`Setting transaction types as '${argv.type}'...`);
     await page.click('div.overSelect');
-    for (t of types) {
+    for (t of argv.type) {
         await page.click(`input[value='${t}']`);
     }
 
