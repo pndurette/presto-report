@@ -1,4 +1,18 @@
 const puppeteer = require('puppeteer');
+const argv = require('yargs')
+    .usage('$0 [args]', 'Generate PRESTO card activity reports')
+    .option('f', {
+        alias: 'file',
+        demandOption: true,
+        default: '/etc/passwd',
+        describe: 'x marks the spot',
+        type: 'string'
+    })
+    .help()
+    .version()
+    .argv
+
+process.exit()
 
 // Login credentials
 presto_user = process.env.PRESTO_USER

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pndurette/presto-report#readme",
   "dependencies": {
-    "puppeteer": "^1.17.0"
+    "puppeteer": "^1.17.0",
+    "yargs": "^13.3.0"
   }
 }

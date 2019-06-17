@@ -22,5 +22,4 @@ COPY --chown=chrome js .
 USER chrome
 RUN npm install
 
-ENTRYPOINT ["tini", "--"]
-CMD ["node", "presto-report"]
+ENTRYPOINT ["tini", "--", "node", "presto-report"]
