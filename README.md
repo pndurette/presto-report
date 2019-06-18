@@ -20,17 +20,17 @@
 ### Installation
 
 ```bash
-# Pull
-docker pull pndurette/presto-report
+$ docker pull pndurette/presto-report
+```
 
-# Create environment file
+```bash
 cat << EOF > .env
 PRESTO_USER=youruser
 PRESTO_PASS=yourpass
 EOF
 ```
 
-Define `PRESTO_USER` and `PRESTO_PASS` respectively as the username and password you use to login to [prestocard.ca](https://www.prestocard.ca/) (see [`.env.example`](.env.example)). 
+Define `PRESTO_USER` and `PRESTO_PASS` respectively as your [prestocard.ca](https://www.prestocard.ca/) credentials (see [`.env.example`](.env.example)). 
 
 
 
