@@ -40,9 +40,11 @@ Define `PRESTO_USER` and `PRESTO_PASS` respectively as your [prestocard.ca](http
 docker run --rm --privileged --env-file .env pndurette/presto-report --help
 ```
 
-### Examples
+## Examples
 
-<u>Last month's report</u> to `./artifacts/<report>.pdf` [1]
+**Last month's report to** `./artifacts/<report>.pdf`:
+
+* Emailing is optional. Mount the `artifact` directory to access your report:
 
 ```bash
 docker run --rm --privileged --env-file .env \
@@ -50,7 +52,11 @@ docker run --rm --privileged --env-file .env \
            pndurette/presto-report --lastmonth
 ```
 
-<u>June 2018's report</u> to `receipts@company.com` [2] [3]:
+**June 2018's report to** `receipts@company.com`:
+
+* To email, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope—it's free for 100 emails/day) set to `SENDGRID_API_KEY` in your `.env` file
+
+* Some expensing systems (like *Chrome River*) that supports receipts emailing allows you to set the 'subjet' to the amount of the expense.
 
 ```bash
 docker run --rm --privileged --env-file .env \
@@ -61,26 +67,16 @@ docker run --rm --privileged --env-file .env \
            --subject '$100'
 ```
 
-<u>Last month's report</u> to ``receipts@company.com` [4]:
+Last month's report to ``receipts@company.com`
+
+* Any CLI option `opt` can be set via a  `PRESTO_<OPT>` environment variable in `.env` (e.g. `PRESTO_TO`, `PRESTO_FROM`, etc.) as defaults. See [`.env.example`](.env.example).
 
 ```bash
 docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 ```
 
-
-
-#### Footnotes:
-
-[1] **NB:** Emailing is optional. Mount the `artifact` directory to access your report.
-
-[2] **NB:** To email, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope—it's free for 100 emails/day) set to `SENDGRID_API_KEY` in your `.env` file.
-
-[3] **NB:** Some expensing software (like Chrome River) that supports receipts emailing let's you set the expense amount in the subjet line.
-
-[4] **NB:** Any CLI option `opt` can be set via a  `PRESTO_<OPT>` environment variable in `.env` (e.g. `PRESTO_TO`, `PRESTO_FROM`, etc.) as defaults. See [`.env.example`](.env.example).
-
-
-
 ## Caveats 
 
-The error management in this piece of software is <u>piss-poor at best</u>. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Please note that is also my first forray into NodeJS. 
+The error management in this piece of software is *piss-poor at **best***. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Please note that is also my first forray into NodeJS. 
+
+This only supports PRESTO card accounts with one card set up as I don't have a second one to test.
