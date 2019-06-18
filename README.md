@@ -44,7 +44,7 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --help
 
 **Last month's report to** `./artifacts/<report>.pdf`:
 
-* Emailing is optional. Mount the `artifact` directory to access your report:
+Emailing is optional. Mount the `artifact` directory to access your report:
 
 ```bash
 docker run --rm --privileged --env-file .env \
@@ -54,9 +54,9 @@ docker run --rm --privileged --env-file .env \
 
 **June 2018's report to** `receipts@company.com`:
 
-* To email, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope—it's free for 100 emails/day) set to `SENDGRID_API_KEY` in your `.env` file
+To email, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope—it's free for 100 emails/day) set to `SENDGRID_API_KEY` in your `.env` file
 
-* Some expensing systems (like *Chrome River*) that supports receipts emailing allows you to set the 'subjet' to the amount of the expense.
+Some expensing systems (like *Chrome River*) that supports receipts emailing allows you to set the 'subjet' to the amount of the expense.
 
 ```bash
 docker run --rm --privileged --env-file .env \
@@ -67,9 +67,9 @@ docker run --rm --privileged --env-file .env \
            --subject '$100'
 ```
 
-Last month's report to ``receipts@company.com`
+**Last month's report to** `receipts@company.com`
 
-* Any CLI option `opt` can be set via a  `PRESTO_<OPT>` environment variable in `.env` (e.g. `PRESTO_TO`, `PRESTO_FROM`, etc.) as defaults. See [`.env.example`](.env.example).
+Any CLI option `opt` can be set via a  `PRESTO_<OPT>` environment variable in `.env` (e.g. `PRESTO_TO`, `PRESTO_FROM`, etc.) as defaults. See [`.env.example`](.env.example).
 
 ```bash
 docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
@@ -80,3 +80,4 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 The error management in this piece of software is *piss-poor at **best***. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Please note that is also my first forray into NodeJS. 
 
 This only supports PRESTO card accounts with one card set up as I don't have a second one to test.
+
