@@ -10,12 +10,20 @@ const moment = require('moment');
  *     e.g. "04/01/2019 - 05/08/2019"
  */
 module.exports.prestoDateRange = function (argv) {
+    var from_date = moment();
+    var to_date = moment();
+
     if (argv.lastmonth) {
         // Last month range
-        from_date = moment().subtract(1, 'months').startOf('month')
-        to_date = moment().subtract(1, 'months').endOf('month')
-        return `${from_date.format('MM/DD/YYYY')} - ${to_date.format('MM/DD/YYYY')}`
-    }
+        from_date = moment().subtract(1, 'months').startOf('month');
+        to_date   = moment(from_date).endOf('month');
+    } else if ('year' in argv && 'month' in argv) {
+        // Defined year and month range
+        from_date = moment(`${argv.year}-${argv.month}-01`, "YYYY-MM-DD");
+        to_date   = moment(from_date).endOf('month');
+    };
+
+    return `${from_date.format('MM/DD/YYYY')} - ${to_date.format('MM/DD/YYYY')}`;
 };
 
 /**
@@ -49,6 +57,6 @@ module.exports.emailPdf = function (from, to, subject, pdf_path) {
             contentId: pdf_file
         }],
     };
-    console.log(`Sending PDF to '${to}'...`)
+    console.log(`Sending PDF to '${to}'...`);
     sgMail.send(msg);
 };
