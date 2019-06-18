@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### About
+## About
 
 **presto-report** is a simple NodeJS app packaged in a Docker image alongside a full Chrome headless browser. It is based on [zenika/alpine-chrome](https://github.com/Zenika/alpine-chrome) and uses [puppeteer](https://github.com/GoogleChrome/puppeteer) to crawl the Web and generate PDFs. It supports emailing PDFs with a [free] [SendGrid](https://sendgrid.com) API key.
 
@@ -17,7 +17,7 @@
 
 
 
-### Installation
+## Installation
 
 ```bash
 docker pull pndurette/presto-report
@@ -34,13 +34,13 @@ Define `PRESTO_USER` and `PRESTO_PASS` respectively as your [prestocard.ca](http
 
 
 
-### Usage
+## Usage
 
 ```bash
 docker run --rm --privileged --env-file .env pndurette/presto-report --help
 ```
 
-#### Examples
+### Examples
 
 <u>Last month's report</u> to `./artifacts/<report>.pdf` [1]
 
@@ -69,7 +69,7 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 
 
 
-##### Footnotes:
+#### Footnotes:
 
 [1] **NB:** Emailing is optional. Mount the `artifact` directory to access your report.
 
@@ -81,6 +81,6 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 
 
 
-### Caveats 
+## Caveats 
 
 The error management in this piece of software is <u>piss-poor at best</u>. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Please note that is also my first forray into NodeJS. 
