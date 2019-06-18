@@ -86,7 +86,7 @@ module.exports.savePdf = async function (date_range, transaction_types, pdf_path
     });
 
     // Save as PDF
-    console.log("Saving PDF to 'pdf_path'...");
+    console.log(`Saving PDF to '${pdf_path}'...`);
     await page.pdf({
         path: pdf_path,
         displayHeaderFooter: true,
