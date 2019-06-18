@@ -109,9 +109,6 @@ date_range = utils.prestoDateRange(argv)
 pdf_name = 'presto_' + date_range.replace(/\/| /g, '_') + '.pdf'
 pdf_path = path.join(artifacts_dir, pdf_name)
 
-console.log(date_range)
-process.exit()
-
 // Crawl and save PDF
 crawler.savePdf(date_range, argv.type, pdf_path)
     .then(function () {
