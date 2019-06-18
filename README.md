@@ -77,7 +77,6 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 
 ## Caveats 
 
-The error management in this piece of software is *piss-poor at **best***. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Please note that is also my first forray into NodeJS. 
+The error management in this piece of software is *piss-poor at **best***. Effort was made to pre-validate the input, but that's about it. If it hangs, CTRL-C and check your parameters (username, password, api keys) but also the network, etc. Timeouts are also possible. Please note that is also my first forray into NodeJS.
 
 This only supports PRESTO card accounts with one card set up as I don't have a second one to test.
-
