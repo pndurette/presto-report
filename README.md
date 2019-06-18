@@ -15,17 +15,24 @@
 3. Clicks '*Print*' & saves as PDF;
 4. *(Optional)* Emails that PDF.
 
+
+
 ### Installation
 
-**Pull image**
-
 ```bash
-$ docker pull pndurette/presto-report
+# Pull
+docker pull pndurette/presto-report
+
+# Create environment file
+cat << EOF > .env
+PRESTO_USER=youruser
+PRESTO_PASS=yourpass
+EOF
 ```
 
-**Setup environment**
+Define `PRESTO_USER` and `PRESTO_PASS` respectively as the username and password you use to login to [prestocard.ca](https://www.prestocard.ca/) (see [`.env.example`](.env.example)). 
 
-Define `PRESTO_USER` and `PRESTO_PASS` in a file named `.env`; respectively as the username and password you use to login to [prestocard.ca](https://www.prestocard.ca/) (see [`.env.example`](.env.example)). 
+
 
 ### Usage
 
@@ -33,11 +40,9 @@ Define `PRESTO_USER` and `PRESTO_PASS` in a file named `.env`; respectively as t
 $ docker run --rm --privileged --env-file .env pndurette/presto-report --help
 ```
 
-**NB:** Chrome needs `--privileged` to run inside Docker (or at the very least [`--cap-add=SYS_ADMIN`](https://github.com/Zenika/alpine-chrome#with-sys_admin-capability))
-
 #### Examples
 
-<u>Last month's report</u> to `./artifacts/<report>.pdf`[1]
+<u>Last month's report</u> to `./artifacts/<report>.pdf` [1]
 
 ```bash
 $ docker run --rm --privileged --env-file .env \
@@ -62,13 +67,19 @@ $ docker run --rm --privileged --env-file .env \
 $ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 ```
 
-[1] **NB:** To skip the emailing feature, you'll have to mount the `artifact` directory to access your report (not don't use any email argument).
 
-[2] **NB:** To use the emailing feature, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope) set to `SENDGRID_API_KEY` in your `.env` file. They're free for 100 emails/day. Otherwise, you'll have to mount the `artifacts` directory.
 
-[3] **NB:** Many expensing software (like Chrome River) that supports emailing of receipts also support setting the amount set as the email 'subject' line.
+##### Footnotes:
+
+[1] **NB:** Emailing is optional. Mount the `artifact` directory to access your report.
+
+[2] **NB:** To email, you'll need a [SendGrid API Key](https://sendgrid.com/pricing/) (with at least the 'Mail Send' scope—it's free for 100 emails/day) set to `SENDGRID_API_KEY` in your `.env` file.
+
+[3] **NB:** Some expensing software (like Chrome River) that supports receipts emailing let's you set the expense amount in the subjet line.
 
 [4] **NB:** Any CLI option `opt` can be set via a  `PRESTO_<OPT>` environment variable in `.env` (e.g. `PRESTO_TO`, `PRESTO_FROM`, etc.) as defaults. See [`.env.example`](.env.example).
+
+
 
 ### Caveats 
 
