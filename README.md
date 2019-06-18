@@ -20,7 +20,7 @@
 ### Installation
 
 ```bash
-$ docker pull pndurette/presto-report
+docker pull pndurette/presto-report
 ```
 
 ```bash
@@ -37,7 +37,7 @@ Define `PRESTO_USER` and `PRESTO_PASS` respectively as your [prestocard.ca](http
 ### Usage
 
 ```bash
-$ docker run --rm --privileged --env-file .env pndurette/presto-report --help
+docker run --rm --privileged --env-file .env pndurette/presto-report --help
 ```
 
 #### Examples
@@ -45,26 +45,26 @@ $ docker run --rm --privileged --env-file .env pndurette/presto-report --help
 <u>Last month's report</u> to `./artifacts/<report>.pdf` [1]
 
 ```bash
-$ docker run --rm --privileged --env-file .env \
-             -v $(pwd)/artifacts:/artifacts \
-             pndurette/presto-report --lastmonth
+docker run --rm --privileged --env-file .env \
+           -v $(pwd)/artifacts:/artifacts \
+           pndurette/presto-report --lastmonth
 ```
 
 <u>June 2018's report</u> to `receipts@company.com` [2] [3]:
 
 ```bash
-$ docker run --rm --privileged --env-file .env \
-             -v $(pwd)/artifacts:/artifacts \
-             pndurette/presto-report --year 2018 --month 06 \
-             --to receipts@company.com \
-             --from me@company.com \
-             --subject '$100'
+docker run --rm --privileged --env-file .env \
+           -v $(pwd)/artifacts:/artifacts \
+           pndurette/presto-report --year 2018 --month 06 \
+           --to receipts@company.com \
+           --from me@company.com \
+           --subject '$100'
 ```
 
 <u>Last month's report</u> to ``receipts@company.com` [4]:
 
 ```bash
-$ docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
+docker run --rm --privileged --env-file .env pndurette/presto-report --lastmonth
 ```
 
 
