@@ -44,7 +44,7 @@ docker run --rm --privileged --env-file .env pndurette/presto-report --help
 
 **Last month's report to** `./artifacts/<report>.pdf`:
 
-Emailing is optional. Mount the `artifact` directory to access your report:
+Emailing is optional. Mount the `/artifacts` directory from the container to access your report:
 
 ```bash
 docker run --rm --privileged --env-file .env \
